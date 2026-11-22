@@ -1,0 +1,506 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOMENT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div style="text-align:center; margin:15px;">
+  <button onclick="changeLang('en')" style="padding:8px 15px; border-radius:10px;">English</button>
+  <button onclick="changeLang('te')" style="padding:8px 15px; border-radius:10px;">Telugu</button>
+  <button onclick="changeLang('ta')" style="padding:8px 15px; border-radius:10px;">Tamil</button>
+  <button onclick="changeLang('hi')" style="padding:8px 15px; border-radius:10px;">Hindi</button>
+</div>
+  <!-- Shared flower motif, defined once and reused via <use> -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="flowerSymbol" viewBox="0 0 100 100">
+        <g fill="#FFD93D" stroke="#E0B500" stroke-width="2">
+          <circle cx="50" cy="22" r="18"/>
+          <circle cx="78" cy="42" r="18"/>
+          <circle cx="68" cy="75" r="18"/>
+          <circle cx="32" cy="75" r="18"/>
+          <circle cx="22" cy="42" r="18"/>
+        </g>
+        <circle cx="50" cy="50" r="14" fill="#FFF9FB" stroke="#E0B500" stroke-width="2"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="topbar">
+    <div class="brand">
+      <svg class="flower" viewBox="0 0 100 100" aria-hidden="true"><use href="#flowerSymbol"/></svg>
+      <div>
+        <h1 id="appTitle" data-i18n="appTitle">MOMENT</h1>
+        <p id="tagline" data-i18n="tagline">Because every moment with Mom is a blessing.</p>
+      </div>
+      <svg class="flower" viewBox="0 0 100 100" aria-hidden="true"><use href="#flowerSymbol"/></svg>
+    </div>
+</header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar" aria-label="Main">
+      <button class="nav-btn" data-page="home"><span class="nav-label" data-i18n="navHome">Home</span></button>
+      <button class="nav-btn" data-page="tablet"><span class="nav-label" data-i18n="navTablet">Tablet</span></button>
+      <button class="nav-btn" data-page="water"><span class="nav-label" data-i18n="navWater">Water</span></button>
+      <button class="nav-btn" data-page="walk"><span class="nav-label" data-i18n="navWalk">Walk</span></button>
+      <button class="nav-btn" data-page="yoga"><span class="nav-ico">🧘</span><span class="nav-label" data-i18n="navYoga">Yoga</span></button>
+      <button class="nav-btn" data-page="food"><span class="nav-label" data-i18n="navFood">Food</span></button>
+      <button class="nav-btn" data-page="mood"><span class="nav-label" data-i18n="navMood">Mood</span></button>
+      <button class="nav-btn" data-page="emergency"><span class="nav-label" data-i18n="navEmergency">Emergency</span></button>
+      <button class="nav-btn" data-page="doctor"><span class="nav-label" data-i18n="navDoctor">Doctor</span></button>
+      <button class="nav-btn" data-page="reports"><span class="nav-label" data-i18n="navReports">Reports</span></button>
+      <button class="nav-btn" data-page="family"><span class="nav-label" data-i18n="navFamily">Family</span></button>
+      <button class="nav-btn" data-page="settings"><span class="nav-label" data-i18n="navSettings">Settings</span></button>
+      <button class="nav-btn" data-page="summary"><span class="nav-label" data-i18n="navSummary">Summary</span></button>
+    </nav>
+
+    <main id="main">
+      <svg class="corner corner-tl flower" viewBox="0 0 100 100" aria-hidden="true"><use href="#flowerSymbol"/></svg>
+      <svg class="corner corner-br flower" viewBox="0 0 100 100" aria-hidden="true"><use href="#flowerSymbol"/></svg>
+
+      <!-- HOME -->
+      <section class="page" id="page-home">
+        <h2 data-i18n="appTitle">MOMENT</h2>
+        <div class="divider"><svg class="flower" viewBox="0 0 100 100" aria-hidden="true"><use href="#flowerSymbol"/></svg></div>
+        <div class="identity-card">
+  <h2 class="identity-title">Person's Identity</h2>
+  <p class="identity-subtitle">Who are we caring for today?</p>
+
+  <div id="personDisplay">
+    <p id="personText" class="identity-text">Name · Age · City · Health</p>
+    <button onclick="editPerson()" class="edit-btn">✎ Edit Identity</button>
+  </div>
+
+  <div id="personEdit" style="display:none;">
+    <input id="personName" class="pretty-input" placeholder="Full Name" />
+    <input id="personAge" class="pretty-input" placeholder="Age" />
+    <input id="personCity" class="pretty-input" placeholder="City" />
+    <input id="personHealth" class="pretty-input" placeholder="Health Conditions" />
+    <button onclick="savePerson()" class="save-btn">Save Identity ♡</button>
+  </div>
+</div>
+        <p class="greeting" id="greeting"></p>
+        <p class="home-line" id="homeLine" data-i18n="homeLine">Everyone deserves love. Everyone deserves to be cared for.</p>
+        <div class="big-buttons">
+          <button class="big-btn btn-blue" id="btnTabletGo" data-page="tablet" data-i18n="btnTablet">Tablet</button>
+          <button class="big-btn btn-pink" id="btnWaterGo" data-page="water" data-i18n="btnWater">Water</button>
+          <button class="big-btn btn-blue" id="btnWalkGo" data-page="walk" data-i18n="btnWalk">Walk</button>
+          <button class="big-btn btn-red" id="btnEmergencyGo" data-page="emergency" data-i18n="btnEmergency">Emergency</button>
+        </div>
+        <div class="card">
+          <p data-i18n="dailyProgress">Today's progress</p>
+          <div class="progress" id="dailyProgressBar"><div class="progress-fill" id="dailyProgressFill"></div></div>
+          <p id="dailyProgressText"></p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="vitalsTitle">Vitals</h3>
+          <div id="vitalsList"></div>
+        </div>
+        <div class="card reminder" id="reminderBox"></div>
+        <p id="nextCheck" class="next-check"></p>
+      </section>
+
+      <!-- TABLET -->
+      <section class="page" id="page-tablet">
+        <h2 data-i18n="navTablet">Tablet</h2>
+        <div class="divider"><svg class="flower" viewBox="0 0 100 100" aria-hidden="true"><use href="#flowerSymbol"/></svg></div>
+        <div class="refill-alert hidden" id="refillAlert" data-i18n="refillAlert">Refill needed soon</div>
+        <div id="medList"></div>
+        <form class="card form" id="addMedForm">
+          <h3 data-i18n="addMedicine">Add medicine</h3>
+          <label for="medName" data-i18n="medName">Medicine name</label>
+          <input id="medName" type="text" required>
+          <label for="medDose" data-i18n="medDose">Dose</label>
+          <input id="medDose" type="text">
+          <label for="medTimes" data-i18n="medTimes">Times</label>
+          <input id="medTimes" type="text" placeholder="08:00, 20:00">
+          <label for="medPills" data-i18n="medPillsLeft">Pills left</label>
+          <input id="medPills" type="number" min="0" inputmode="numeric">
+          <button class="big-btn btn-blue" type="submit" data-i18n="addBtn">Add</button>
+        </form>
+      </section>
+
+      <!-- WATER -->
+      <section class="page" id="page-water">
+        <h2 data-i18n="navWater">Water</h2>
+        <div class="divider"><svg class="flower" viewBox="0 0 100 100" aria-hidden="true"><use href="#flowerSymbol"/></svg></div>
+        <div class="card">
+          <p class="big-number"><span id="waterCount">0</span> <span data-i18n="glassesOf">glasses</span></p>
+          <p id="waterGlasses"></p>
+          <div class="progress"><div class="progress-fill" id="waterFill"></div></div>
+          <div class="big-buttons">
+            <button class="big-btn btn-blue" id="plusGlassBtn" data-i18n="plusGlass">+1 glass</button>
+            <button class="big-btn btn-pink" id="resetWaterBtn" data-i18n="resetBtn">Reset</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- WALK -->
+      <section class="page" id="page-walk">
+        <h2 data-i18n="navWalk">Walk</h2>
+        <div class="divider"><svg class="flower" viewBox="0 0 100 100" aria-hidden="true"><use href="#flowerSymbol"/></svg></div>
+        <div class="card">
+          <p class="timer-display" id="walkTimerDisplay">00:00</p>
+          <p data-i18n="oneHourTimer">One hour timer</p>
+          <div class="big-buttons">
+            <button class="big-btn btn-blue" id="walkStartBtn" data-i18n="startWalk">Start</button>
+            <button class="big-btn btn-pink" id="walkPauseBtn" data-i18n="pause">Pause</button>
+            <button class="big-btn btn-pink" id="walkResetBtn" data-i18n="reset">Reset</button>
+          </div>
+        </div>
+        <div class="card">
+          <p id="stepsText"></p>
+          <div class="progress"><div class="progress-fill" id="stepsFill"></div></div>
+          <form class="inline-form" id="addStepsForm">
+            <label for="addStepsInput" data-i18n="steps">Steps</label>
+            <input id="addStepsInput" type="number" min="0" inputmode="numeric">
+            <button class="big-btn btn-blue" id="addStepsBtn" type="button" data-i18n="addSteps">Add steps</button>
+          </form>
+        </div>
+        <div class="big-buttons">
+          <button class="big-btn btn-blue" id="walkModeSlow" data-i18n="slowWalk">Slow walk</button>
+          <button class="big-btn btn-pink" id="walkMode5" data-i18n="fiveMinWalk">5-minute walk</button>
+        </div>
+        <div class="card">
+          <h3 data-i18n="exercisesTitle">Exercises</h3>
+          <ul class="list" id="exerciseList"></ul>
+        </div>
+      </section>
+<!-- YOGA -->
+<section class="page" id="page-yoga">
+  <h2 data-i18n="navYoga">🧘 Yoga Asanas</h2>
+  <p data-i18n="yogaSub">Gentle yoga for Mom - 10 to 15 mins each</p>
+
+  <div class="card">
+    <h3>1. Tadasana - Mountain Pose</h3>
+    <p>Stand straight, hands up, breathe deep - 10 mins.</p>
+    <div class="timer" id="yt1">10:00</div>
+    <button class="big-btn btn-blue" onclick="startTimer('yt1',600)">Start</button>
+  </div>
+
+  <div class="card">
+    <h3>2. Vrikshasana - Tree Pose</h3>
+    <p>Stand near wall, one foot on other leg - 10 mins.</p>
+    <div class="timer" id="yt2">10:00</div>
+    <button class="big-btn btn-blue" onclick="startTimer('yt2',600)">Start</button>
+  </div>
+
+  <div class="card">
+    <h3>3. Sukhasana - Easy Sitting</h3>
+    <p>Sit cross-legged, close eyes, slow breathing - 15 mins.</p>
+    <div class="timer" id="yt3">15:00</div>
+    <button class="big-btn btn-blue" onclick="startTimer('yt3',900)">Start</button>
+  </div>
+
+  <div class="card">
+    <h3>4. Bhujangasana - Cobra Pose</h3>
+    <p>Lie on stomach, lift chest slowly - 10 mins.</p>
+    <div class="timer" id="yt4">10:00</div>
+    <button class="big-btn btn-blue" onclick="startTimer('yt4',600)">Start</button>
+  </div>
+
+  <div class="card">
+    <h3>5. Pranayama - Breathing</h3>
+    <p>Sit straight, left in, right out - Anulom Vilom - 15 mins.</p>
+    <div class="timer" id="yt5">15:00</div>
+    <button class="big-btn btn-blue" onclick="startTimer('yt5',900)">Start</button>
+  </div>
+
+  <div class="card">
+    <h3>6. Shavasana - Relax Pose</h3>
+    <p>Lie on back, hands open, full relax - 15 mins.</p>
+    <div class="timer" id="yt6">15:00</div>
+    <button class="big-btn btn-blue" onclick="startTimer('yt6',900)">Start</button>
+  </div>
+</section>
+      <!-- FOOD -->
+      <section class="page" id="page-food">
+        <h2 data-i18n="navFood">Food</h2>
+        <div class="divider"><svg class="flower" viewBox="0 0 100 100" aria-hidden="true"><use href="#flowerSymbol"/></svg></div>
+        <div id="mealList"></div>
+        <form class="card form" id="addMealForm">
+          <h3 data-i18n="addMeal">Add meal</h3>
+          <label for="mealNameInput" data-i18n="mealName">Meal name</label>
+          <input id="mealNameInput" type="text" required>
+          <label for="mealSlot" data-i18n="mealSlot">Time of day</label>
+          <select id="mealSlot">
+            <option value="breakfast" data-i18n="mealBreakfast">Breakfast</option>
+            <option value="lunch" data-i18n="mealLunch">Lunch</option>
+            <option value="evening" data-i18n="slotEvening">Evening</option>
+            <option value="night" data-i18n="slotNight">Night</option>
+          </select>
+          <label for="mealPicture" data-i18n="mealPicture">Picture</label>
+          <select id="mealPicture">
+            <option value="breakfast" data-i18n="foodBreakfastText">Breakfast</option>
+            <option value="lunch" data-i18n="foodLunchText">Lunch</option>
+            <option value="evening" data-i18n="foodEveningText">Evening</option>
+            <option value="night" data-i18n="foodNightText">Night</option>
+          </select>
+          <button class="big-btn btn-blue" type="submit" data-i18n="addBtn">Add</button>
+        </form>
+      </section>
+
+      <!-- MOOD -->
+      <section class="page" id="page-mood">
+        <h2 data-i18n="navMood">Mood</h2>
+        <div class="divider"><svg class="flower" viewBox="0 0 100 100" aria-hidden="true"><use href="#flowerSymbol"/></svg></div>
+        <div class="mood-buttons" id="moodButtons">
+          <button class="mood-btn" data-mood="happy" aria-label="Happy">
+            <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#FFD93D" stroke="#E0B500" stroke-width="3"/><circle cx="35" cy="40" r="5" fill="#333"/><circle cx="65" cy="40" r="5" fill="#333"/><path d="M30 60 Q50 80 70 60" stroke="#333" stroke-width="5" fill="none" stroke-linecap="round"/></svg>
+            <span data-i18n="moodHappy">Happy</span>
+          </button>
+          <button class="mood-btn" data-mood="okay" aria-label="Okay">
+            <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#FFD93D" stroke="#E0B500" stroke-width="3"/><circle cx="35" cy="40" r="5" fill="#333"/><circle cx="65" cy="40" r="5" fill="#333"/><path d="M32 66 L68 66" stroke="#333" stroke-width="5" stroke-linecap="round"/></svg>
+            <span data-i18n="moodOkay">Okay</span>
+          </button>
+          <button class="mood-btn" data-mood="tired" aria-label="Tired">
+            <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#FFD93D" stroke="#E0B500" stroke-width="3"/><path d="M28 40 L42 40 M58 40 L72 40" stroke="#333" stroke-width="5" stroke-linecap="round"/><path d="M36 70 Q50 60 64 70" stroke="#333" stroke-width="5" fill="none" stroke-linecap="round"/></svg>
+            <span data-i18n="moodTired">Tired</span>
+          </button>
+          <button class="mood-btn" data-mood="sad" aria-label="Sad">
+            <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#FFD93D" stroke="#E0B500" stroke-width="3"/><circle cx="35" cy="40" r="5" fill="#333"/><circle cx="65" cy="40" r="5" fill="#333"/><path d="M30 74 Q50 56 70 74" stroke="#333" stroke-width="5" fill="none" stroke-linecap="round"/></svg>
+            <span data-i18n="moodSad">Sad</span>
+          </button>
+        </div>
+        <p class="big-number" id="moodMessage"></p>
+        <div class="card form">
+          <label for="diaryText" data-i18n="diaryTitle">Diary</label>
+          <textarea id="diaryText" rows="4"></textarea>
+          <button class="big-btn btn-blue" id="saveDiaryBtn" type="button" data-i18n="saveDiary">Save diary</button>
+        </div>
+        <div id="diaryList"></div>
+      </section>
+
+      <!-- EMERGENCY -->
+    <section class="page" id="page-emergency">
+  <h2 data-i18n="navEmergency">Emergency</h2>
+
+  <div class="card sos-main-card">
+    <h3>🚨 Need Help? Tap a Name</h3>
+    <p>Tap a family member's name to call them immediately.</p>
+    <button class="sos" id="sosBtn" data-i18n="sos">SOS - Call Everyone</button>
+  </div>
+
+  <!-- NAMES NOT NUMBERS -->
+  <div class="card sos-name-card">
+    <h3>👦 Son</h3>
+    <p class="sos-name">Call Son</p>
+    <button class="big-btn" onclick="window.location.href='tel:'">📞 Call Son</button>
+  </div>
+
+  <div class="card sos-name-card">
+    <h3>👧 Daughter</h3>
+    <p class="sos-name">Call Daughter</p>
+    <button class="big-btn" onclick="window.location.href='tel:'">📞 Call Daughter</button>
+  </div>
+
+  <div class="card sos-name-card">
+    <h3>🩺 Family Doctor</h3>
+    <p class="sos-name">Call Family Doctor</p>
+    <button class="big-btn" onclick="window.location.href='tel:'">📞 Call Doctor</button>
+  </div>
+
+  <div class="card sos-name-card sos-ambulance">
+    <h3>🚑 Ambulance</h3>
+    <p class="sos-name">Only Ambulance has a number</p>
+    <button class="big-btn" onclick="window.location.href='tel:108'">📞 Call 108</button>
+  </div>
+
+  <div class="emergency-buttons" id="emergencyButtons"></div>
+</section>
+
+      <!-- DOCTOR -->
+      <section class="page" id="page-doctor">
+        <h2 data-i18n="navDoctor">Doctor</h2>
+        <div class="divider"><svg class="flower" viewBox="0 0 100 100" aria-hidden="true"><use href="#flowerSymbol"/></svg></div>
+        <div class="card"><p id="nextApptText"></p></div>
+        <div id="apptList"></div>
+        <form class="card form" id="addApptForm">
+          <h3 data-i18n="addAppointment">Add appointment</h3>
+          <label for="apptDoctor" data-i18n="doctorName">Doctor name</label>
+          <input id="apptDoctor" type="text" required>
+          <label for="apptDate" data-i18n="apptDate">Date</label>
+          <input id="apptDate" type="date" required>
+          <label for="apptTime" data-i18n="apptTime">Time</label>
+          <input id="apptTime" type="time">
+          <label for="apptPlace" data-i18n="apptPlace">Place</label>
+          <input id="apptPlace" type="text">
+          <label for="apptPicture" data-i18n="apptPicture">Picture</label>
+          <select id="apptPicture">
+            <option value="doctor" data-i18n="doctorName">Doctor</option>
+            <option value="hospital" data-i18n="apptPlace">Hospital</option>
+          </select>
+          <button class="big-btn btn-blue" type="submit" data-i18n="addBtn">Add</button>
+        </form>
+      </section>
+
+      <!-- REPORTS -->
+      <section class="page" id="page-reports">
+        <h2 data-i18n="navReports">Reports</h2>
+        <div class="divider"><svg class="flower" viewBox="0 0 100 100" aria-hidden="true"><use href="#flowerSymbol"/></svg></div>
+        <div class="card" id="reportValues"></div>
+        <div class="card">
+          <h3 data-i18n="chartTitle">Chart</h3>
+          <svg id="reportChart" class="chart" viewBox="0 0 400 200" role="img" aria-label="Chart"></svg>
+        </div>
+        <form class="card form" id="addReportForm">
+          <h3 data-i18n="addReport">Add report</h3>
+          <label for="repType" data-i18n="reportType">Type</label>
+          <select id="repType">
+            <option value="sugar" data-i18n="sugar">Sugar</option>
+            <option value="bp" data-i18n="bp">Blood pressure</option>
+            <option value="weight" data-i18n="weight">Weight</option>
+          </select>
+          <label for="repValue" data-i18n="reportValue">Value</label>
+          <input id="repValue" type="text" required>
+          <label for="repDate" data-i18n="reportDate">Date</label>
+          <input id="repDate" type="date" required>
+          <button class="big-btn btn-blue" type="submit" data-i18n="addReport">Add report</button>
+        </form>
+      </section>
+
+      <!-- FAMILY -->
+      <!-- FAMILY -->
+<section class="page" id="page-family">
+  <h2 data-i18n="navFamily">👨‍👩‍👧‍👦 Family & Who Did What</h2>
+  <p data-i18n="familySub">Family members & their status</p>
+
+  <!-- MOM - ORANGE -->
+  <div class="card" style="display:flex;align-items:center;gap:12px;border-left:6px solid #ff9800">
+    <div style="font-size:45px;background:#ffcc80;width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center">👩</div>
+    <div>
+      <h3 style="margin:0;color:#e65100">Mom</h3>
+      <p style="margin:2px 0">🟢 At Home - Resting</p>
+      <p style="margin:0;font-size:13px;color:#888">Last task: Yoga done ✅</p>
+    </div>
+  </div>
+
+  <!-- FATHER - BLUE -->
+  <div class="card" style="display:flex;align-items:center;gap:12px;border-left:6px solid #2196f3">
+    <div style="font-size:45px;background:#90caf9;width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center">👨</div>
+    <div>
+      <h3 style="margin:0;color:#1565c0">Father</h3>
+      <p style="margin:2px 0">🟡 At Work</p>
+      <p style="margin:0;font-size:13px;color:#888">Last task: Gave Tablet ✅</p>
+    </div>
+  </div>
+
+  <!-- SON - TEAL -->
+  <div class="card" style="display:flex;align-items:center;gap:12px;border-left:6px solid #00b894">
+    <div style="font-size:45px;background:#80cbc4;width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center">👦</div>
+    <div>
+      <h3 style="margin:0;color:#00796b">Son</h3>
+      <p style="margin:2px 0">🟢 At Home</p>
+      <p style="margin:0;font-size:13px;color:#888">Last task: Walk done ✅</p>
+    </div>
+  </div>
+
+  <!-- DAUGHTER - PURPLE -->
+  <div class="card" style="display:flex;align-items:center;gap:12px;border-left:6px solid #9c27b0">
+    <div style="font-size:45px;background:#ce93d8;width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center">👧</div>
+    <div>
+      <h3 style="margin:0;color:#7b1fa2">Daughter</h3>
+      <p style="margin:2px 0">🔴 Out - College</p>
+      <p style="margin:0;font-size:13px;color:#888">Last task: Food given ✅</p>
+    </div>
+  </div>
+
+  <!-- WHO DID WHAT -->
+  <div class="card">
+    <h3>✅ Who Did What Today</h3>
+    <p>☀️ Morning Tablet - Father ✅</p>
+    <p>🚶 Walk - Dad ✅</p>
+    <p>🧘 Yoga - Mom ✅</p>
+    <p>🍲 Food - Mom ✅</p>
+    <p>💧 Water - Son ✅</p>
+  </div>
+
+  <!-- FAMILY CHAT -->
+  <div class="card">
+    <h3>💬 Family Chat</h3>
+    <div id="familyChat" style="background:#f5f5f5;padding:10px;border-radius:10px;min-height:80px;margin-bottom:10px">
+      <p><b>Son:</b> Mom did Yoga today! 🧘</p>
+      <p><b>Daughter:</b> I will bring medicines ❤️</p>
+    </div>
+    <input type="text" id="familyInput" placeholder="Type message..." style="width:70%;padding:10px;border-radius:10px;border:1px solid #ddd">
+    <button class="big-btn btn-blue" onclick="sendFamilyMsg()" style="width:25%">Send</button>
+  </div>
+</section>
+<!-- SETTINGS -->
+      <section class="page" id="page-settings">
+        <h2 data-i18n="navSettings">Settings</h2>
+        <div class="divider"><svg class="flower" viewBox="0 0 100 100" aria-hidden="true"><use href="#flowerSymbol"/></svg></div>
+        <form class="card form" id="settingsForm">
+          <label for="setName" data-i18n="momName">Name</label>
+          <input id="setName" type="text">
+          <label for="setAge" data-i18n="momAge">Age</label>
+          <input id="setAge" type="number" min="0" inputmode="numeric">
+          <label for="setCity" data-i18n="momCity">City</label>
+          <input id="setCity" type="text">
+          <label for="setDisease" data-i18n="momConditions">Conditions</label>
+          <input id="setDisease" type="text">
+          <label for="setLang" data-i18n="langLabel">Language</label>
+          <select id="setLang"></select>
+          <label for="setPhoneDaughter" data-i18n="daughter">Daughter</label>
+          <input id="setPhoneDaughter" type="tel" inputmode="tel">
+          <label for="setPhoneSon" data-i18n="son">Son</label>
+          <input id="setPhoneSon" type="tel" inputmode="tel">
+          <button class="big-btn btn-blue" id="saveSettingsBtn" type="submit" data-i18n="save">Save</button>
+          <p id="settingsSaved" class="hidden" data-i18n="saved">Saved</p>
+        </form>
+      </section>
+
+      <!-- SUMMARY -->
+    <section class="page" id="page-summary">
+  <h2 data-i18n="summaryTitle">Summary</h2>
+
+  <div class="card summary-big-card">
+    <h3>✨ Today's Summary - Mom ✨</h3>
+    <ul class="list checklist" id="summaryChecklist">
+      <li>💊 <b>Tablet:</b> <span id="sumTablet">Not yet</span></li>
+      <li>💧 <b>Water:</b> <span id="sumWater">0 of 8 glasses</span></li>
+      <li>🍲 <b>Food:</b> <span id="sumFood">Not yet</span></li>
+      <li>🚶 <b>Walk & Exercise:</b> <span id="sumWalk">Not yet</span></li>
+      <li>🧘 <b>Yoga:</b> <span id="sumYoga">Not yet</span></li>
+      <li>❤️ <b>Mood:</b> <span id="sumMood">-</span></li>
+      <li>🩺 <b>Health:</b> <span id="sumHealth">130 mg/dL • 120/80 • 62 kg</span></li>
+    </ul>
+    <p id="summaryText"></p>
+  </div>
+
+  <div class="big-buttons">
+    <button class="big-btn btn-blue" id="sendSummaryBtn">Send summary to family</button>
+    <button class="big-btn btn-pink" id="downloadSummaryBtn">Download Summary</button>
+  </div>
+</section>
+
+  <script src="translations.js"></script>
+  <script src="app.js"></script>
+  <script>
+function changeLang(code){
+  var t = MOMENT_T[code];
+  if(!t) return;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k = el.getAttribute('data-i18n');
+    if(t[k]) el.textContent = t[k];
+  });
+  var s = document.getElementById('langSelect');
+  if(s) s.value = code;
+}
+
+function sendFamilyMsg(){
+  var inp = document.getElementById('familyInput');
+  if(!inp.value) return;
+  var chat = document.getElementById('familyChat');
+  chat.innerHTML += '<p><b>You:</b> ' + inp.value + '</p>';
+  inp.value = '';
+}
+</script>
+</body>
+</html>

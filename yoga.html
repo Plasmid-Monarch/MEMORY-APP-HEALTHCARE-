@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOMENT - Yoga</title>
+<style>
+body{font-family:Arial;background:#fff8f0;margin:0;padding:20px}
+header{display:flex;justify-content:space-between;align-items:center}
+h1{color:#d35400;margin:5px 0}
+p{margin:5px 0}
+.lang-btns button{padding:8px 14px;margin:3px;border:none;border-radius:20px;background:#ffe0b2;cursor:pointer;font-weight:bold}
+.lang-btns button:hover{background:#ff9800;color:white}
+.back{color:#d35400;text-decoration:none;font-weight:bold}
+.card{background:white;padding:18px;border-radius:15px;box-shadow:0 2px 10px #ddd;margin:15px 0}
+.card h2{margin:5px 0;color:#333}
+.card p{color:#666}
+.card button{background:#ff9800;color:white;border:none;padding:10px 18px;border-radius:20px;cursor:pointer;font-weight:bold;font-size:15px}
+.timer{font-size:24px;font-weight:bold;color:#d35400;margin:10px 0}
+.total{background:#d35400;color:white;padding:15px;border-radius:15px;text-align:center;font-size:18px;font-weight:bold}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <a class="back" href="index.html">← Back</a>
+    <h1 data-i18n="yogaTitle">🧘 Yoga Asanas</h1>
+    <p data-i18n="yogaSub">Gentle yoga for Mom - 10 to 15 mins each</p>
+  </div>
+  <div class="lang-btns">
+    <button onclick="changeLang('en')">English</button>
+    <button onclick="changeLang('te')">తెలుగు</button>
+    <button onclick="changeLang('ta')">தமிழ்</button>
+    <button onclick="changeLang('hi')">हिन्दी</button>
+  </div>
+</header>
+
+<div class="total" data-i18n="total">Total Session: 75 mins - 6 Asanas</div>
+
+<div class="card">
+  <h2 data-i18n="y1">1. Tadasana - Mountain Pose</h2>
+  <p data-i18n="y1d">Stand straight, hands up, breathe deep for 10 mins.</p>
+  <div class="timer" id="t1">10:00</div>
+  <button onclick="startTimer('t1',600)">Start</button>
+</div>
+
+<div class="card">
+  <h2 data-i18n="y2">2. Vrikshasana - Tree Pose</h2>
+  <p data-i18n="y2d">Stand near wall, one foot on other leg, hands together. 10 mins.</p>
+  <div class="timer" id="t2">10:00</div>
+  <button onclick="startTimer('t2',600)">Start</button>
+</div>
+
+<div class="card">
+  <h2 data-i18n="y3">3. Sukhasana - Easy Sitting</h2>
+  <p data-i18n="y3d">Sit cross-legged, close eyes, slow breathing. 15 mins.</p>
+  <div class="timer" id="t3">15:00</div>
+  <button onclick="startTimer('t3',900)">Start</button>
+</div>
+
+<div class="card">
+  <h2 data-i18n="y4">4. Bhujangasana - Cobra Pose</h2>
+  <p data-i18n="y4d">Lie on stomach, lift chest slowly, hold and breathe. 10 mins.</p>
+  <div class="timer" id="t4">10:00</div>
+  <button onclick="startTimer('t4',600)">Start</button>
+</div>
+
+<div class="card">
+  <h2 data-i18n="y5">5. Pranayama - Breathing</h2>
+  <p data-i18n="y5d">Sit straight, breathe in left, out right - Anulom Vilom. 15 mins.</p>
+  <div class="timer" id="t5">15:00</div>
+  <button onclick="startTimer('t5',900)">Start</button>
+</div>
+
+<div class="card">
+  <h2 data-i18n="y6">6. Shavasana - Relax Pose</h2>
+  <p data-i18n="y6d">Lie on back, hands open, full body relax. 15 mins.</p>
+  <div class="timer" id="t6">15:00</div>
+  <button onclick="startTimer('t6',900)">Start</button>
+</div>
+
+<script>
+var MOMENT_T = {
+en:{yogaTitle:"🧘 Yoga Asanas",yogaSub:"Gentle yoga for Mom - 10 to 15 mins each",total:"Total Session: 75 mins - 6 Asanas",y1:"1. Tadasana - Mountain Pose",y1d:"Stand straight, hands up, breathe deep for 10 mins.",y2:"2. Vrikshasana - Tree Pose",y2d:"Stand near wall, one foot on other leg, hands together. 10 mins.",y3:"3. Sukhasana - Easy Sitting",y3d:"Sit cross-legged, close eyes, slow breathing. 15 mins.",y4:"4. Bhujangasana - Cobra Pose",y4d:"Lie on stomach, lift chest slowly, hold and breathe. 10 mins.",y5:"5. Pranayama - Breathing",y5d:"Sit straight, breathe in left, out right - Anulom Vilom. 15 mins.",y6:"6. Shavasana - Relax Pose",y6d:"Lie on back, hands open, full body relax. 15 mins."},
+te:{yogaTitle:"🧘 యోగా ఆసనాలు",yogaSub:"అమ్మ కోసం సున్నితమైన యోగా - ఒక్కోటి 10 నుండి 15 నిమిషాలు",total:"మొత్తం సెషన్: 75 నిమిషాలు - 6 ఆసనాలు",y1:"1. తాడాసనం - పర్వత భంగిమ",y1d:"నిటారుగా నిలబడి, చేతులు పైకి, లోతుగా శ్వాస - 10 నిమిషాలు.",y2:"2. వృక్షాసనం - చెట్టు భంగిమ",y2d:"గోడ దగ్గర నిలబడి, ఒక కాలు మరో కాలుపై, చేతులు జోడించండి - 10 నిమిషాలు.",y3:"3. సుఖాసనం - సులభంగా కూర్చోవడం",y3d:"కాళ్ళు ముడుచుకుని కూర్చుని, కళ్ళు మూసుకుని నెమ్మదిగా శ్వాస - 15 నిమిషాలు.",y4:"4. భుజంగాసనం - కోబ్రా భంగిమ",y4d:"బోర్లా పడుకుని, ఛాతిని నెమ్మదిగా పైకి లేపి శ్వాస - 10 నిమిషాలు.",y5:"5. ప్రాణాయామం - శ్వాస",y5d:"నిటారుగా కూర్చుని, ఎడమ నుండి శ్వాస, కుడి నుండి వదలండి - 15 నిమిషాలు.",y6:"6. శవాసనం - విశ్రాంతి భంగిమ",y6d:"వెల్లకిలా పడుకుని, చేతులు తెరిచి, పూర్తి విశ్రాంతి - 15 నిమిషాలు."},
+ta:{yogaTitle:"🧘 யோகா ஆசனங்கள்",yogaSub:"அம்மாவுக்கு மென்மையான யோகா - ஒவ்வொன்றும் 10 முதல் 15 நிமிடம்",total:"மொத்த அமர்வு: 75 நிமிடங்கள் - 6 ஆசனங்கள்",y1:"1. தாடாசனம் - மலை நிலை",y1d:"நேராக நின்று, கைகளை மேலே, ஆழமாக மூச்சு - 10 நிமிடம்.",y2:"2. விருட்சாசனம் - மர நிலை",y2d:"சுவர் அருகில் நின்று, ஒரு காலை மற்ற காலில், கைகளை கூப்புங்கள் - 10 நிமிடம்.",y3:"3. சுகாசனம் - எளிய அமர்வு",y3d:"கால்களை மடக்கி அமர்ந்து, கண்களை மூடி மெதுவாக மூச்சு - 15 நிமிடம்.",y4:"4. புஜங்காசனம் - நாக நிலை",y4d:"குப்புற படுத்து, மார்பை மெதுவாக உயர்த்தி மூச்சு - 10 நிமிடம்.",y5:"5. பிராணாயாமம் - மூச்சு",y5d:"நேராக அமர்ந்து, இடது மூச்சு உள், வலது மூச்சு வெளி - 15 நிமிடம்.",y6:"6. சவாசனம் - ஓய்வு நிலை",y6d:"மல்லாந்து படுத்து, கைகளை விரித்து, முழு ஓய்வு - 15 நிமிடம்."},
+hi:{yogaTitle:"🧘 योग आसन",yogaSub:"माँ के लिए हल्का योग - हर आसन 10 से 15 मिनट",total:"कुल सत्र: 75 मिनट - 6 आसन",y1:"1. ताड़ासन - पर्वत मुद्रा",y1d:"सीधे खड़े हो, हाथ ऊपर, गहरी साँस - 10 मिनट.",y2:"2. वृक्षासन - वृक्ष मुद्रा",y2d:"दीवार के पास खड़े हो, एक पैर दूसरे पैर पर, हाथ जोड़ो - 10 मिनट.",y3:"3. सुखासन - आसान बैठना",y3d:"पालथी मारकर बैठो, आँखें बंद, धीमी साँस - 15 मिनट.",y4:"4. भुजंगासन - कोबरा मुद्रा",y4d:"पेट के बल लेटो, छाती धीरे से उठाओ, साँस लो - 10 मिनट.",y5:"5. प्राणायाम - साँस",y5d:"सीधे बैठो, बाएँ से साँस अंदर, दाएँ से बाहर - 15 मिनट.",y6:"6. शवासन - आराम मुद्रा",y6d:"पीठ के बल लेटो, हाथ खोलो, पूरा आराम - 15 मिनट."}
+};
+function changeLang(code){
+  var t=MOMENT_T[code]; if(!t) return;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n'); if(t[k]) el.textContent=t[k];
+  });
+}
+function startTimer(id,sec){
+  var el=document.getElementById(id);
+  var left=sec;
+  var iv=setInterval(function(){
+    var m=Math.floor(left/60), s=left%60;
+    el.textContent=(m<10?'0'+m:m)+':'+(s<10?'0'+s:s);
+    left--;
+    if(left<0){clearInterval(iv); el.textContent="Done! ✅";}
+  },1000);
+}
+</script>
+</body>
+</html>
